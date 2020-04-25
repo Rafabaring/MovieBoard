@@ -1,0 +1,21 @@
+<h1>MovieBoard</h1>
+
+{% if movie_list_data %}                               <!-- if statement python style -->
+  <ul>
+      {% for movie_list in movie_list_data %}               <!-- for loop python style -->
+          <li>
+              <a href = "www.google.com"> @ </a>
+              {{movie_list.vote_count}} |
+              {{movie_list.movie_title}} |
+              {{movie_list.imdb_score}} |
+              {{movie_list.genre}} |
+              {{movie_list.youtube_trailer_link}} |
+              {{movie_list.recommender}} |
+              {{movie_list.recommendee_first_name}} {{movie_list.recommendee_last_name}}
+          </li>
+      {% endfor %}
+  </ul>
+
+
+
+{% endif %}
