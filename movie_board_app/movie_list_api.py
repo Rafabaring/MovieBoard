@@ -6,7 +6,7 @@ from rest_framework import viewsets
 import requests
 
 #Third party score key
-from MovieBoard.third_party_score_key.py import get_omdb_api_key
+from MovieBoard.third_party_score_key import get_omdb_api_key
 
 # Importing models
 from movie_board_app.models import Genre, Movie
