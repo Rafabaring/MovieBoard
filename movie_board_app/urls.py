@@ -12,6 +12,9 @@ urlpatterns = [
     path('get_movie_list_api/', movie_list_api.MovieBoardList.as_view(), name = 'movie_board'), # call the API
 
     # UpVote
-    path('upvote_movie/',     views.UpVoteView.as_view(), name = 'upvote_movie'), # call the API
-    path('upvote_movie_api/', movie_list_api.UpVoteMovie.as_view(), name = 'upvote_movie'), # call the API
+    path('upvote_movie/<movie_id>',     views.UpVoteView.as_view(), name = 'upvote_movie'),
+    path('upvote_movie_api/', movie_list_api.UpVoteMovie.as_view(), name = 'upvote_movie_api'), # call the API
+
+    # Get third party score
+    path('score_api/', movie_list_api.ThirdPartyRatings.as_view(), name = 'score_api'), # call the API
 ]

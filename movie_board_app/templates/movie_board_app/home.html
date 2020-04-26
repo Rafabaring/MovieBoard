@@ -2,18 +2,89 @@
 
 {% if movie_list_data %}                               <!-- if statement python style -->
   <ul>
+
+    <div style="position:relative;
+                left: 50px;
+                top: 0px;
+                font-family:georgia;
+                font-size:16px;
+                font-style:italic
+                text-align:center">
+
       {% for movie_list in movie_list_data %}               <!-- for loop python style -->
           <li>
-              <a href = "www.google.com"> @ </a>
-              {{movie_list.vote_count}} |
-              {{movie_list.movie_title}} |
-              {{movie_list.imdb_score}} |
-              {{movie_list.genre}} |
-              {{movie_list.youtube_trailer_link}} |
-              {{movie_list.recommender}} |
-              {{movie_list.recommendee_first_name}} {{movie_list.recommendee_last_name}}
+              <form action="{% url 'movie_board:upvote_movie' movie_list.id %}" method="POST">
+                {% csrf_token %}
+                <button name="subject" type="submit" value="fav_HTML"> Up Vote </button>
+                {{movie_list.vote_count}} |
+                {{movie_list.movie_title}} |
+                {{movie_list.imdb_score}} |
+                {{movie_list.genre}} |
+                {{movie_list.youtube_trailer_link}} |
+                {{movie_list.recommender}} |
+                {{movie_list.recommendee_first_name}} {{movie_list.recommendee_last_name}}
+              </form>
           </li>
       {% endfor %}
+    </div>
+
+
+    <!-- <div style="text-align:center">
+
+
+          <table>
+            {% for movie_list in movie_list_data %}
+              <tr>
+                  <th>Up Vote</th>
+                  <th>Vote Count</th>
+                  <th>Movie Title</th>
+                  <th>IMBD Score</th>
+                  <th>Genre</th>
+                  <th>Trailer</th>
+                  <th>Recommender</th>
+                  <th>Recommendee</th>
+              </tr>
+
+              <tr>
+                  <td>
+                      <form action="{% url 'movie_board:upvote_movie' movie_list.id %}" method="POST">
+                      {% csrf_token %}
+                      <button name="upvote" type="submit"> Up Vote </button>
+                      </form>
+                  </td>
+                  <td style="text-align:center">{{movie_list.vote_count}}</td>
+                  <td style="text-align:center">{{movie_list.movie_title}}</td>
+                  <td style="text-align:center">{{movie_list.imdb_score}}</td>
+                  <td style="text-align:center">{{movie_list.genre}}</td>
+                  <td style="text-align:center">{{movie_list.youtube_trailer_link}}</td>
+                  <td style="text-align:center">{{movie_list.recommender}}</td>
+                  <td style="text-align:center">{{movie_list.recommendee_first_name}} {{movie_list.recommendee_last_name}}</td>
+
+              </tr>
+
+
+          </table>
+      {% endfor %}
+    </div> -->
+
+
+
+    <table>
+         <tr>
+            <th>Language</th>
+            <th>Release Year</th>
+         </tr>
+         <tr>
+            <td>Java</td>
+            <td>1995</td>
+         </tr>
+         <tr>
+            <td>Pascal</td>
+            <td style="text-align:center">1970</td>
+         </tr>
+      </table>
+
+
   </ul>
 
 

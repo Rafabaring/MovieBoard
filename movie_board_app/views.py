@@ -33,17 +33,16 @@ class MovieBoardView(APIView):
         return HttpResponse(template.render(context, request))
 
 class UpVoteView(APIView):
-    def post(self, request):
+    def post(self, request, movie_id):
 
-        data_requested = request.data # json format
+        data =  {
+        "movie_primary_key": movie_id
+        }
 
-        # data =  {
-        # "movie_primary_key": request.data['id'],
-        # "movie_title": request.data['movie_title']
-        # }
-
+        print("DATA")
+        print(data)
         URL = "http://localhost:8000/movie_board/upvote_movie_api/"
-        r = requests.post(url = URL, data = data_requested)
+        r = requests.post(url = URL, data = data)
 
 
         # Esse é o mesmo código que o get acima. Descobrir como fazer uma versão melhor
@@ -59,5 +58,6 @@ class UpVoteView(APIView):
         context = {
             'movie_list_data': movie_list_data
         }
-        # No Response, always pass the request
+
         return HttpResponse(template.render(context, request))
+        # return render(request, 'movie_board_app/up_vote.html')

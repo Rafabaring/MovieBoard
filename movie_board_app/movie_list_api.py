@@ -3,6 +3,11 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import viewsets
 
+import requests
+
+#Third party score key
+from MovieBoard.third_party_score_key.py import get_omdb_api_key
+
 # Importing models
 from movie_board_app.models import Genre, Movie
 
@@ -41,25 +46,31 @@ class UpVoteMovie(APIView):
 
     def post(self, request):
         upvote_serializer = UpVoteMovieSerializer(data = request.data)
-        print('joe')
+        print("UPVOTE SERIALIZER")
         print(upvote_serializer)
-        # print(request.data)
-        # print(request.data['id'])
-
+        print('----')
+        print(request.data)
+        print(request.data['movie_primary_key'])
+        movie_id_to_upvote = request.data['movie_primary_key']
         if upvote_serializer.is_valid():
-            movie_id_to_upvote = request.data['id']
+            print('valid serializer')
+            # movie_id_to_upvote = request.data['id']
             movie_to_upvote = Movie.objects.get(pk = movie_id_to_upvote)
 
-            print('BEFORE CHANGE')
-            print(movie_to_upvote)
-            print(movie_to_upvote.vote_count)
-            print('')
             movie_to_upvote.vote_count = movie_to_upvote.vote_count + 1
-
-            print('AFTER CHANGE')
-            print(movie_to_upvote)
-            print(movie_to_upvote.vote_count)
-            print('')
             movie_to_upvote.save()
 
             return Response(upvote_serializer.data)
+
+
+class ThirdPartyRatings(APIView):
+    def get(self, request):
+        omdb_api_key = get_omdb_api_key()
+        URL = '''http://www.omdbapi.com/?apikey=''' + omdb_api_key + '''&t=the+matrix'''
+
+        r = requests.get(url = URL)
+        score_data = r.json()
+
+        print(score_data['Ratings'])
+
+        return Response(score_data['Ratings'])
