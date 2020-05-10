@@ -19,7 +19,7 @@ class Movie(models.Model):
     recommendee_first_name = models.CharField(max_length = 50, default = '')
     recommendee_last_name  = models.CharField(max_length = 50, default = '')
     vote_count             = models.IntegerField(default = 0)
-    imdb_score             = models.FloatField(default = 0)
+    imdb_score             = models.CharField(max_length = 10, default = '')
 
     def __str__(self):
         return  str(self.pk) + " | " + self.recommender.first_name + " - " + self.movie_title

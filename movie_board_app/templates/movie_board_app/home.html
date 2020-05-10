@@ -20,7 +20,7 @@
                 {{movie_list.movie_title}} |
                 {{movie_list.imdb_score}} |
                 {{movie_list.genre}} |
-                {{movie_list.youtube_trailer_link}} |
+                <a href = "{{movie_list.youtube_trailer_link}}">link |</a>
                 {{movie_list.recommender}} |
                 {{movie_list.recommendee_first_name}} {{movie_list.recommendee_last_name}}
               </form>
@@ -86,6 +86,8 @@
 
 
   </ul>
+
+  <a href = "{% url 'create_user:create_user' %}"> BACK </a>
 
 
 
