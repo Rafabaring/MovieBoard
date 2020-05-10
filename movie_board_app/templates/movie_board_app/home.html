@@ -1,7 +1,5 @@
-<h1>MovieBoard</h1>
-
-{% if movie_list_data %}                               <!-- if statement python style -->
-  <ul>
+<!-- {% if movie_list_data %} -->
+<!-- <ul>
 
     <div style="position:relative;
                 left: 50px;
@@ -11,7 +9,7 @@
                 font-style:italic
                 text-align:center">
 
-      {% for movie_list in movie_list_data %}               <!-- for loop python style -->
+      {% for movie_list in movie_list_data %}
           <li>
               <form action="{% url 'movie_board:upvote_movie' movie_list.id %}" method="POST">
                 {% csrf_token %}
@@ -27,68 +25,96 @@
           </li>
       {% endfor %}
     </div>
+</ul> -->
 
 
-    <!-- <div style="text-align:center">
+<head>
+      <!-- Description on the Broser tab -->
+      <title>MovieBoard</title>
+</head>
 
 
-          <table>
-            {% for movie_list in movie_list_data %}
-              <tr>
-                  <th>Up Vote</th>
-                  <th>Vote Count</th>
-                  <th>Movie Title</th>
-                  <th>IMBD Score</th>
-                  <th>Genre</th>
-                  <th>Trailer</th>
-                  <th>Recommender</th>
-                  <th>Recommendee</th>
-              </tr>
 
-              <tr>
-                  <td>
-                      <form action="{% url 'movie_board:upvote_movie' movie_list.id %}" method="POST">
-                      {% csrf_token %}
-                      <button name="upvote" type="submit"> Up Vote </button>
-                      </form>
-                  </td>
-                  <td style="text-align:center">{{movie_list.vote_count}}</td>
-                  <td style="text-align:center">{{movie_list.movie_title}}</td>
-                  <td style="text-align:center">{{movie_list.imdb_score}}</td>
-                  <td style="text-align:center">{{movie_list.genre}}</td>
-                  <td style="text-align:center">{{movie_list.youtube_trailer_link}}</td>
-                  <td style="text-align:center">{{movie_list.recommender}}</td>
-                  <td style="text-align:center">{{movie_list.recommendee_first_name}} {{movie_list.recommendee_last_name}}</td>
 
-              </tr>
 
+<body style="background-color: #0c343d">
+
+<!-- UpVote buttom CSS -->
+<style type="text/css">
+    #submit {
+      background-color: #0c343d;
+      padding: .5em;
+      border-radius: 6px;
+      color: white;
+    }
+    #submit:hover {
+      background: #ffd966;
+      box-shadow: 0px 0px 1px #777;
+      color: black
+    }
+</style>
+
+
+
+
+
+<h1 style = "color: #ffd966; font-family: arial">MovieBoard</h1>
+
+
+
+
+<!-- Link para create user / create movie page -->
+<a href = "{% url 'create_user:create_user' %}"
+   style="color: white"> + Add Recommendation </a>
+
+    <div>
+
+          <table style = "color: white; font-family: arial; width:1200px">
+                <!-- Table Header -->
+                <tr style = "font-size:15px; background-color: #134f5c; height: 50px">
+
+                      <th>Up Vote</th>
+                      <th>Vote Count</th>
+                      <th>Movie Title</th>
+                      <th>IMBD Score</th>
+                      <th>Genre</th>
+                      <th>Trailer</th>
+                      <th>Recommender</th>
+                      <th>Recommendee</th>
+
+                </tr>
+
+                <!-- Table Data 👍-->
+                {% for movie_list in movie_list_data %}
+                <tr style = "font-size:11px; background-color: #0e3942">
+
+                      <td style="text-align:center">
+                          <form action="{% url 'movie_board:upvote_movie' movie_list.id %}" method="POST">
+                              {% csrf_token %}
+                              <button name="upvote" type="submit"
+                                      id = "submit"> Up Vote </button> <!-- id = "submit" references the CSS style -->
+                          </form>
+                      </td>
+                      <td style="text-align:center">{{movie_list.vote_count}}</td>
+                      <td>                          {{movie_list.movie_title}}</td>
+                      <td style="text-align:center">{{movie_list.imdb_score}}</td>
+                      <td style="text-align:center">{{movie_list.genre}}</td>
+                      <td style="text-align:center"><a href = "{{movie_list.youtube_trailer_link}}" style="color:white">link</a></td>
+                      <td style="text-align:center">{{movie_list.recommender}}</td>
+                      <td style="text-align:center">{{movie_list.recommendee_first_name}} {{movie_list.recommendee_last_name}}</td>
+
+                </tr>
+                {% endfor %}
 
           </table>
-      {% endfor %}
-    </div> -->
+
+    </div>
+
+
+</body>
 
 
 
-    <table>
-         <tr>
-            <th>Language</th>
-            <th>Release Year</th>
-         </tr>
-         <tr>
-            <td>Java</td>
-            <td>1995</td>
-         </tr>
-         <tr>
-            <td>Pascal</td>
-            <td style="text-align:center">1970</td>
-         </tr>
-      </table>
 
 
-  </ul>
-
-  <a href = "{% url 'create_user:create_user' %}"> BACK </a>
-
-
-
-{% endif %}
+<!-- {% endif %} -->
