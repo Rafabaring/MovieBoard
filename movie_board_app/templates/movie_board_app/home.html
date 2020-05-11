@@ -31,13 +31,14 @@
 <head>
       <!-- Description on the Broser tab -->
       <title>MovieBoard</title>
+
 </head>
 
 
 
 
 
-<body style="background-color: #0c343d">
+
 
 <!-- UpVote buttom CSS -->
 <style type="text/css">
@@ -48,60 +49,116 @@
       color: white;
     }
     #submit:hover {
-      background: #ffd966;
+      background: #134f5c;
       box-shadow: 0px 0px 1px #777;
-      color: black
+      color: white
     }
 </style>
 
 
+<!-- Table CSS -->
+<style type="text/css">
+	.TFtable{
+		border-collapse:collapse;
+    color: white;
+    font-family: arial;
+    width:95%
+	}
+	.TFtable td{
+		padding:10px; border:#134f5c 1px solid;
+	}
+	/* provide some minimal visual accomodation for IE8 and below */
+	.TFtable tr{
+		background: #b8d1f3;
+	}
+	/*  Define the background color for all the ODD background rows  */
+	.TFtable tr:nth-child(odd){
+		background: #0c343d;
+	}
+	/*  Define the background color for all the EVEN background rows  */
+	.TFtable tr:nth-child(even){
+		background: #0e3942;
+	}
+</style>
+
+
+<!-- Change background color of part of the header -->
+<style>
+  span {
+  background-color: #ffd966;
+  color: #0c343d
+}
+</style>
 
 
 
-<h1 style = "color: #ffd966; font-family: arial">MovieBoard</h1>
+<body style="background-color: #0c343d;
+             font-family: arial;">
 
 
+
+<h1 style = "color: #ffd966;
+             position: relative;
+             left: 3%;
+             top: 5%">Movie <span>Board</span></h1>
 
 
 <!-- Link para create user / create movie page -->
 <a href = "{% url 'create_user:create_user' %}"
-   style="color: white"> + Add Recommendation </a>
+   style="color: #ffd966;
+          position: relative;
+          left: 88%;
+          border: 1px solid #ffd966;
+          padding: 7px;
+          text-decoration:none;
+          font-size:11px"> + Add Recommendation </a>
 
-    <div>
+   <!-- Table margem from left to right -->
+    <div style = "position:relative; left: 3%; top: 5%">
 
-          <table style = "color: white; font-family: arial; width:1200px">
+          <table class="TFtable">
+
                 <!-- Table Header -->
-                <tr style = "font-size:15px; background-color: #134f5c; height: 50px">
+                <tr style = "font-size:15px; background-color: #134f5c; height: 50px; border: 1px solid #134f5c;">
 
-                      <th>Up Vote</th>
-                      <th>Vote Count</th>
+                      <!-- <th>Up Vote</th> -->
+                      <th>Votes</th>
                       <th>Movie Title</th>
-                      <th>IMBD Score</th>
+                      <th>Ratings</th>
                       <th>Genre</th>
                       <th>Trailer</th>
-                      <th>Recommender</th>
-                      <th>Recommendee</th>
+                      <th>From</th>
+                      <th>To</th>
 
                 </tr>
 
-                <!-- Table Data 👍-->
+                <!-- Table Data 👍 🤘 ↑	⬆ -->
                 {% for movie_list in movie_list_data %}
-                <tr style = "font-size:11px; background-color: #0e3942">
+                <!-- TROCAR AQUI A COR ALTERNADA DAS LINHAS DA TABELA -->
+
+                {% with name="#0e3942" %}
+                <tr style = "font-size:11px">
+                {% endwith %}
 
                       <td style="text-align:center">
+
                           <form action="{% url 'movie_board:upvote_movie' movie_list.id %}" method="POST">
                               {% csrf_token %}
-                              <button name="upvote" type="submit"
-                                      id = "submit"> Up Vote </button> <!-- id = "submit" references the CSS style -->
+                              {{movie_list.vote_count}}
+                              <button name="upvote"
+                                      type="submit"
+                                      id = "submit"
+                                      style = "margin-left:12px"> ▲ </button> <!-- id = "submit" references the CSS style -->
                           </form>
+
                       </td>
-                      <td style="text-align:center">{{movie_list.vote_count}}</td>
-                      <td>                          {{movie_list.movie_title}}</td>
-                      <td style="text-align:center">{{movie_list.imdb_score}}</td>
-                      <td style="text-align:center">{{movie_list.genre}}</td>
-                      <td style="text-align:center"><a href = "{{movie_list.youtube_trailer_link}}" style="color:white">link</a></td>
-                      <td style="text-align:center">{{movie_list.recommender}}</td>
-                      <td style="text-align:center">{{movie_list.recommendee_first_name}} {{movie_list.recommendee_last_name}}</td>
+                      <!-- <td>{{movie_list.vote_count}}   </td> -->
+                      <td>{{movie_list.movie_title}}  </td>
+                      <td>{{movie_list.imdb_score}}   </td>
+                      <td>{{movie_list.genre}}        </td>
+                      <td><a href = "{{movie_list.youtube_trailer_link}}" style="color:white; text-decoration:none">link</a></td>
+                      <td>{{movie_list.recommender}}  </td>
+                      <td>{{movie_list.recommendee_first_name}} {{movie_list.recommendee_last_name}}</td>
 
                 </tr>
                 {% endfor %}
