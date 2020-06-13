@@ -4,25 +4,30 @@ from rest_framework.response import Response
 from rest_framework import viewsets
 
 from django.shortcuts import get_object_or_404
+from django.contrib.auth.models import BaseUserManager
 
 # Importing models
 from create_user_app.models import Recommender
 from movie_board_app.models import Genre
 
-# Importing serializer
-from create_user_app.serializers import CreateUserSerializer
+# Importing UserProfileSerializer
+from create_user_app import serializers
 
+
+
+
+# ========================================
 
 class UserList(APIView):
     def get(self, request):
         all_users = Recommender.objects.all()
-        users_serializer = CreateUserSerializer(all_users, many = True)
+        users_serializer = serializers.CreateUserSerializer(all_users, many = True)
 
         return Response(users_serializer.data)
 
 
     def post(self, request):
-        users_serializer = CreateUserSerializer(data = request.data)
+        users_serializer = serializers.CreateUserSerializer(data = request.data)
         print(users_serializer)
 
         # .is_valid() verifica se o serializer segue os parâmetros iniciais. Nesse caso, max_length = 10
@@ -36,14 +41,6 @@ class UserList(APIView):
             return Response(users_serializer.errors,
                             status = status.HTTP_400_BAD_REQUEST)
 
-    def get_last_created_id():
-        last_created_user       = Recommender.objects.last()
-
-        last_created_id         = last_created_user.id
-        last_created_first_name = last_created_user.first_name
-        last_created_last_name  = last_created_user.last_name
-
-        return (last_created_id, last_created_first_name, last_created_last_name)
 
 
 

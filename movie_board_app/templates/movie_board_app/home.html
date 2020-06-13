@@ -1,31 +1,4 @@
-<!-- {% if movie_list_data %} -->
-<!-- <ul>
 
-    <div style="position:relative;
-                left: 50px;
-                top: 0px;
-                font-family:georgia;
-                font-size:16px;
-                font-style:italic
-                text-align:center">
-
-      {% for movie_list in movie_list_data %}
-          <li>
-              <form action="{% url 'movie_board:upvote_movie' movie_list.id %}" method="POST">
-                {% csrf_token %}
-                <button name="subject" type="submit" value="fav_HTML"> Up Vote </button>
-                {{movie_list.vote_count}} |
-                {{movie_list.movie_title}} |
-                {{movie_list.imdb_score}} |
-                {{movie_list.genre}} |
-                <a href = "{{movie_list.youtube_trailer_link}}">link |</a>
-                {{movie_list.recommender}} |
-                {{movie_list.recommendee_first_name}} {{movie_list.recommendee_last_name}}
-              </form>
-          </li>
-      {% endfor %}
-    </div>
-</ul> -->
 
 
 <head>
@@ -35,7 +8,12 @@
 </head>
 
 
-
+{% if user.is_authenticated %}
+    Hello {{user.username}}
+    Logout (/accounts/logout/)
+{% else %}
+    Login
+{% endif%}
 
 
 
@@ -104,7 +82,7 @@
 
 
 <!-- Link para create user / create movie page -->
-<a href = "{% url 'create_user:create_user' %}"
+<a href = "{% url 'create_user:create_movie' %}"
    style="color: #ffd966;
           position: relative;
           left: 88%;
@@ -169,9 +147,3 @@
 
 
 </body>
-
-
-
-
-
-<!-- {% endif %} -->

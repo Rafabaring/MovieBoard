@@ -8,9 +8,9 @@ app_name = 'create_user'
 
 urlpatterns = [
     # /movie_board/
-    path('create_user/', views.CreateUser.as_view(), name = 'create_user'),
-    path('create_user_api/', create_user_api.UserList.as_view(), name = 'create_user_api'),
-
     # Create movies
     path('create_movie/', views.CreateMovie.as_view(), name = 'create_movie'),
+
+    # Registration
+    path('register/', views.register, name = 'register')
 ]

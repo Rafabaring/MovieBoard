@@ -1,7 +1,7 @@
 from django.shortcuts import get_object_or_404
 from django.http import HttpResponse
 from django.http import Http404
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 
 import requests
 
@@ -19,45 +19,76 @@ from movie_board_app.views import MovieBoardView
 # ThirdParty Scoring
 from movie_board_app.movie_list_api import ThirdPartyRatings
 
-
-class CreateUser(APIView):
-
-    def get(self, request):
-        all_genre = GenreList.get_genre_list()
-
-        template = loader.get_template('create_user_app/create_user.html')
-        genre_context = {
-            "genre_list": all_genre
-        }
-
-        # return render(request, 'create_user_app/create_user.html')
-        return HttpResponse(template.render(genre_context, request))
+# Login and registration form
+from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth import authenticate, login
 
 
-    def post(self, request):
-        data =  {
-        "first_name": request.data['first_name'],
-        "last_name":  request.data['last_name'],
-        }
 
-        # create_user_api.UserList
-        URL = "http://localhost:8000/movie_board/create_user_api/"
-        r = requests.post(url = URL, data = data)
+def index(request):
+    return render(request, 'create_user_app/index.html')
 
 
-        return render(request, 'create_user_app/create_user.html')
+def register(request):
+    if request.method == 'POST':
+        form = UserCreationForm(request.POST)
+        if form.is_valid():
+            form.save() # save the new user to the database
+
+             # authenticating the user
+            username = form.cleaned_data['username']
+            password = form.cleaned_data['password1'] # password1 is the first password field
+
+            user = authenticate(username = username, password = password)
+            # After authenticate, login the recently created user
+            login(request, user)
+            # Once loggedin, send to home page
+            return MovieBoardView().get(request)
+    else:
+        form = UserCreationForm()
+    context = {
+        'form': form
+    }
+
+    return render(request, 'registration/register.html', context)
+
+
+
 
 class CreateMovie(APIView):
-    def post(self, request):
+    def get(self, request):
 
-        # Getting the ID of the last user created
-        # Hopefully is the one recently created
-        last_created_id, last_created_first_name, last_created_last_name = UserList.get_last_created_id()
+        # If the user is authenticade, they can create a movie
+        current_user = request.user
+        if current_user.is_authenticated:
+            all_genre = GenreList.get_genre_list()
+
+            template = loader.get_template('create_user_app/create_movie.html')
+            genre_context = {
+                "genre_list": all_genre
+            }
+
+            # return render(request, 'create_user_app/create_user.html')
+            return HttpResponse(template.render(genre_context, request))
+        else:
+            return register(request)
+
+
+    def post(self, request):
 
         create_movie_requested = request.data # json format
 
         # Adding the ThirdParty ratings
         third_party_score = ThirdPartyRatings.get_third_party_score(request.data['movie_title'])
+
+        # Getting the authenticated current user information
+        # Will be used as recommender
+        current_user = request.user
+        if current_user.is_authenticated:
+            print('user IS Autenticated')
+            print(current_user)
+        else:
+            print('Usuario não autenticado')
 
         create_movie_data =  {
         "movie_title":            request.data['movie_title'],
@@ -66,7 +97,7 @@ class CreateMovie(APIView):
         "recommendee_last_name":  request.data['recommendee_last_name'],
         "vote_count":             0, # start with 0 votes
         "imdb_score":             third_party_score,
-        "recommender":            last_created_id,
+        "recommender":            current_user.id,
         "genre":                  request.data['genre']
 
         }

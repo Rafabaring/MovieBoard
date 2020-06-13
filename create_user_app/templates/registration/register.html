@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<!-- crispy forms is loaded on the template to better work on the forms -->
+{% load crispy_forms_tags %}
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Register</title>
+</head>
+
+
+
+<body>
+    <h1>Sign Up</h1>
+
+
+<!-- Registration  Form -->
+{% block content %}
+<form action="{% url 'create_user:register' %}" method="POST">
+    {% csrf_token %}
+
+    {% if form.errors %}
+    <p>There are errors in the form!</p>
+    {% endif %}
+
+    <!-- In this pre-formated registration form, we are using -->
+    <!-- crispy field to customize it with the pipe | -->
+    <!-- {{ form|crispy }} -->
+    <!-- <div style = "color:red">
+        <p>UserName {{ form.username }}</p>
+    </div> -->
+
+    <div>
+
+        <label style="color:blue; border: 5px solid;" for="{{ form.username.id_for_label }}">Username Jabba:
+        {{ form.username }}
+        </label>
+
+    </div>
+
+    <p>Password {{ form.password1 }}</p>
+    <p>Passsword confirmation {{ form.password2 }}</p>
+
+
+    <input type="submit" value="Register**">
+</form>
+{% endblock %}
+
+
+
+
+<!-- Log In Button -->
+<form action = "/accounts/login" method = "GET">
+  {% csrf_token %}
+  <p>Or Log in Here</p>
+  <input type = "submit" value = "Log In!"/>
+</form>
+
+
+
+
+
+
+</body>
+</html>

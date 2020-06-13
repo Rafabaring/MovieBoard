@@ -1,0 +1,32 @@
+<h1>Create User</h1>
+
+
+<!-- Submit Movie -->
+<form action = "{% url 'create_user:create_movie' %}" method = "POST">
+  {% csrf_token %}
+  <label>Movie Title:</label><br>
+  <input type = "text" id="1" name="movie_title"><br>
+
+  <label>Youtube Trailer link</label><br>
+  <input type = "text" id="1" name="youtube_trailer_link"><br>
+
+  <label>Recipient Name</label><br>
+  <input type = "text" id="1" name="recommendee_first_name"><br>
+
+  <label>Recipient Last Name:</label><br>
+  <input type = "text" id="1" name="recommendee_last_name"><br>
+
+  <!-- <label>Genre:</label><br> -->
+  <!-- <input type = "text" id="1" name="genre_test"><br><br> -->
+
+  <label>Genre:</label><br>
+  <select name="genre">
+
+    {% for genre in genre_list %}
+    <option value="{{genre.id}}">{{genre.genre_type}}</option>
+    {% endfor %}
+
+  </select><br><br>
+
+  <input type = "submit" value = "+ Add Recommendations"/>
+</form>

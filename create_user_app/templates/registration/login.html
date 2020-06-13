@@ -1,0 +1,41 @@
+<!-- The name of this file should be login.html because that's what Djando is looking for -->
+<!DOCTYPE html>
+
+<h1>Jabba</h1>
+
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Login</title>
+</head>
+<body>
+    {% if form.errors %}
+    <!-- If Username and login incorrect, display following message -->
+    <p>Registra ai na moral!</p>
+    {% endif %}
+
+    {% if next %}
+    <p>Hey, you can't access that page.</p>
+    {% endif %}
+
+    <form method="post" action="{% url 'login' %}">
+        {% csrf_token %}
+
+        <p>Username: {{ form.username }}</p>
+        <p>Password: {{ form.password }}</p>
+
+        <!-- we don't create this view but we do have to reference it -->
+        <!-- When login, it redirects to a page /profile -->
+        <!-- The change should be made in settings file -->
+        <p><input type="submit" = value="login"></p>
+        <input type="hidden" name="next" value="{{ next }}">
+    </form>
+
+
+
+
+    
+
+</body>
+</html>
