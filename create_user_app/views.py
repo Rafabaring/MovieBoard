@@ -31,13 +31,13 @@ def index(request):
 
 def register(request):
     if request.method == 'POST':
-        form = UserCreationForm(request.POST)
-        if form.is_valid():
-            form.save() # save the new user to the database
+        registration_form = UserCreationForm(request.POST)
+        if registration_form.is_valid():
+            registration_form.save() # save the new user to the database
 
              # authenticating the user
-            username = form.cleaned_data['username']
-            password = form.cleaned_data['password1'] # password1 is the first password field
+            username = registration_form.cleaned_data['username']
+            password = registration_form.cleaned_data['password1'] # password1 is the first password field
 
             user = authenticate(username = username, password = password)
             # After authenticate, login the recently created user
@@ -45,9 +45,9 @@ def register(request):
             # Once loggedin, send to home page
             return MovieBoardView().get(request)
     else:
-        form = UserCreationForm()
+        registration_form = UserCreationForm()
     context = {
-        'form': form
+        'registration_form': registration_form
     }
 
     return render(request, 'registration/register.html', context)

@@ -40,7 +40,6 @@ INSTALLED_APPS = [
     'rest_framework',
     'movie_board_app',
     'create_user_app',
-    'crispy_forms', # used on forms in html files
 ]
 
 MIDDLEWARE = [
@@ -125,5 +124,3 @@ STATIC_URL = '/static/'
 
 # After login, redirect to home page /movie_board/
 LOGIN_REDIRECT_URL = '/movie_board/'
-
-CRISPY_TEMPLATE_PACK = 'bootstrap4'

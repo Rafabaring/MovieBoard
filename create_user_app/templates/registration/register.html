@@ -1,50 +1,74 @@
 <!DOCTYPE html>
-<!-- crispy forms is loaded on the template to better work on the forms -->
-{% load crispy_forms_tags %}
+
+
+
 
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Register</title>
+    <title>Sing Up</title>
 </head>
 
 
 
-<body>
-    <h1>Sign Up</h1>
+<body style="background-color: #0c343d;
+             font-family: arial;
+             color: white">
+    <h1 style = "color:#ffd966">Sign Up</h1>
 
 
 <!-- Registration  Form -->
-{% block content %}
+
 <form action="{% url 'create_user:register' %}" method="POST">
     {% csrf_token %}
 
-    {% if form.errors %}
+    {% if registration_form.errors %}
     <p>There are errors in the form!</p>
     {% endif %}
 
-    <!-- In this pre-formated registration form, we are using -->
-    <!-- crispy field to customize it with the pipe | -->
-    <!-- {{ form|crispy }} -->
-    <!-- <div style = "color:red">
-        <p>UserName {{ form.username }}</p>
-    </div> -->
-
-    <div>
-
-        <label style="color:blue; border: 5px solid;" for="{{ form.username.id_for_label }}">Username Jabba:
-        {{ form.username }}
-        </label>
-
-    </div>
-
-    <p>Password {{ form.password1 }}</p>
-    <p>Passsword confirmation {{ form.password2 }}</p>
 
 
-    <input type="submit" value="Register**">
+      <style>
+        input[type=text] {
+              border: 1px solid #a2c4c9;
+              border-radius: 4px;
+              width: 250px;
+              padding: 10px;
+              background-color: #0e3942;
+              color: white;
+              }
+      </style>
+
+
+      <p>{{ registration_form.username.label_tag }} {{ registration_form.username }}</p>
+
+      <style>
+        input[type=password] {
+              border: 1px solid #a2c4c9;
+              border-radius: 4px;
+              width: 250px;
+              padding: 10px;
+              background-color: #0e3942;
+              color: white;
+              }
+      </style>
+
+       <p>{{ registration_form.password1.label_tag }} {{ registration_form.password1 }}</p>
+       <p>{{ registration_form.password2.label_tag }} {{ registration_form.password2 }}</p>
+
+
+ <style>
+   button {
+         color:#ffd966;
+         border: 1px solid #ffd966;
+         background-color: Transparent;
+         padding: 7px
+         }
+ </style>
+
+<button type="submit" name="register">Register</button>
 </form>
-{% endblock %}
+
 
 
 
@@ -53,7 +77,7 @@
 <form action = "/accounts/login" method = "GET">
   {% csrf_token %}
   <p>Or Log in Here</p>
-  <input type = "submit" value = "Log In!"/>
+  <button type="submit" name="login">Log In</button>
 </form>
 
 
