@@ -20,8 +20,8 @@ from django.urls import path, include
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('movie_board/', include('movie_board_app.urls')),
-    path('movie_board/', include('create_user_app.urls')),
+    path('', include('movie_board_app.urls')),
+    path('', include('create_user_app.urls')),
 
     # for login and registration
     # accounts/login - automatically redirect to a login.html page under template >> registration

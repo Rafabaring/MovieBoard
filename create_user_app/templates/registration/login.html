@@ -1,41 +1,77 @@
 <!-- The name of this file should be login.html because that's what Djando is looking for -->
 <!DOCTYPE html>
 
-<h1>Jabba</h1>
-
 
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <title>Login</title>
 </head>
-<body>
+
+
+
+<body style="background-color: #0c343d;
+             font-family: arial;
+             color: white">
+
+<h1 style = "color:#ffd966">Log In</h1>
+
     {% if form.errors %}
-    <!-- If Username and login incorrect, display following message -->
-    <p>Registra ai na moral!</p>
+      <!-- If Username and login incorrect, display following message -->
+      <p>Sequelou no username e password</p>
     {% endif %}
 
-    {% if next %}
-    <p>Hey, you can't access that page.</p>
-    {% endif %}
 
+
+    <!-- we don't create this view but we do have to reference it -->
+    <!-- When login, it redirects to a page /profile -->
+    <!-- The change should be made in settings file -->
     <form method="post" action="{% url 'login' %}">
         {% csrf_token %}
 
-        <p>Username: {{ form.username }}</p>
-        <p>Password: {{ form.password }}</p>
+        <style>
+          input[type=text] {
+                border: 1px solid #a2c4c9;
+                border-radius: 4px;
+                width: 250px;
+                padding: 10px;
+                background-color: #0e3942;
+                color: white;
+                }
+        </style>
 
-        <!-- we don't create this view but we do have to reference it -->
-        <!-- When login, it redirects to a page /profile -->
-        <!-- The change should be made in settings file -->
-        <p><input type="submit" = value="login"></p>
-        <input type="hidden" name="next" value="{{ next }}">
+        <p>{{ form.username.label_tag }} {{ form.username }}</p>
+
+
+        <style>
+          input[type=password] {
+                border: 1px solid #a2c4c9;
+                border-radius: 4px;
+                width: 250px;
+                padding: 10px;
+                background-color: #0e3942;
+                color: white;
+                }
+        </style>
+
+        <p>{{ form.password.label_tag }} {{ form.password }}</p>
+
+
+        <style>
+          button {
+                color:#ffd966;
+                border: 1px solid #ffd966;
+                background-color: Transparent;
+                padding: 7px
+                }
+        </style>
+        <button type="submit" = value="login"> Log In 🤘 </button>
     </form>
 
 
 
 
-    
+
 
 </body>
 </html>

@@ -122,5 +122,5 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
-# After login, redirect to home page /movie_board/
-LOGIN_REDIRECT_URL = '/movie_board/'
+# After login, redirect to home page /
+LOGIN_REDIRECT_URL = '/'

@@ -8,7 +8,7 @@ from create_user_app import create_user_api # importing views
 app_name = 'movie_board'
 
 urlpatterns = [
-    # /movie_board/
+    # /
     path('',                views.MovieBoardView.as_view(), name = 'home'),
     path('movie_list_api/', movie_list_api.MovieBoardList.as_view(), name = 'movie_board'),
 

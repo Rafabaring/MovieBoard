@@ -19,7 +19,7 @@ from rest_framework import viewsets
 class MovieBoardView(APIView):
 
     def get(self, request):
-        URL = "http://localhost:8000/movie_board/movie_list_api/"
+        URL = "http://localhost:8000/movie_list_api/"
         r = requests.get(url = URL)
 
         # extracting data in json format
@@ -40,7 +40,7 @@ class UpVoteView(APIView):
         "movie_primary_key": movie_id
         }
 
-        URL = "http://localhost:8000/movie_board/upvote_movie_api/"
+        URL = "http://localhost:8000/upvote_movie_api/"
         r = requests.post(url = URL, data = data)
 
         return MovieBoardView().get(request)

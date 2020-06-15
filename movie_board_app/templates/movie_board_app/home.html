@@ -9,10 +9,9 @@
 
 
 {% if user.is_authenticated %}
-    Hello {{user.username}}
-    Logout (/accounts/logout/)
+    <p style = "color:#ffd966">Hello {{user.username}}</p>
 {% else %}
-    Login
+
 {% endif%}
 
 

@@ -103,7 +103,7 @@ class CreateMovie(APIView):
         }
 
 
-        URL = "http://127.0.0.1:8000/movie_board/movie_list_api/"
+        URL = "http://127.0.0.1:8000/movie_list_api/"
         r = requests.post(url = URL, data = create_movie_data)
 
         # After creating a movie, goes to the movieboard list / home

@@ -17,7 +17,7 @@ from movie_board_app.serializers import MovieBoardSerializer, UpVoteMovieSeriali
 # List all stocks or create a new one
 class MovieBoardList(APIView):
     def get(self, request):
-        all_movies        = Movie.objects.all()
+        all_movies        = Movie.objects.all().order_by('-id')
         movies_serializer = MovieBoardSerializer(all_movies, many = True)
         return Response(movies_serializer.data)
 

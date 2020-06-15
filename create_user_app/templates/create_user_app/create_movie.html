@@ -1,32 +1,81 @@
-<h1>Create User</h1>
+<body style="background-color: #0c343d;
+             font-family: arial;
+             color: white">
+
+
+<h1 style = "color:#ffd966">Recommend a movie</h1>
+
 
 
 <!-- Submit Movie -->
 <form action = "{% url 'create_user:create_movie' %}" method = "POST">
   {% csrf_token %}
+
+
+  <style>
+    input[type=text] {
+          border: 1px solid #a2c4c9;
+          border-radius: 4px;
+          width: 250px;
+          padding: 10px;
+          background-color: #0e3942;
+          color: white;
+          }
+  </style>
+
+
   <label>Movie Title:</label><br>
-  <input type = "text" id="1" name="movie_title"><br>
+  <input type = "text" name="movie_title">
+  <br>
+  <br>
 
-  <label>Youtube Trailer link</label><br>
-  <input type = "text" id="1" name="youtube_trailer_link"><br>
+  <label>Youtube Trailer link:</label><br>
+  <input type = "text" name="youtube_trailer_link">
+  <br>
+  <br>
 
-  <label>Recipient Name</label><br>
-  <input type = "text" id="1" name="recommendee_first_name"><br>
+  <label>Recipient Name:</label><br>
+  <input type = "text" name="recommendee_first_name">
+  <br>
+  <br>
 
   <label>Recipient Last Name:</label><br>
-  <input type = "text" id="1" name="recommendee_last_name"><br>
+  <input type = "text" name="recommendee_last_name">
+  <br>
+  <br>
 
   <!-- <label>Genre:</label><br> -->
   <!-- <input type = "text" id="1" name="genre_test"><br><br> -->
 
-  <label>Genre:</label><br>
+  <label>Genre:</label>
+  <br>
+
   <select name="genre">
 
     {% for genre in genre_list %}
     <option value="{{genre.id}}">{{genre.genre_type}}</option>
     {% endfor %}
 
-  </select><br><br>
+  </select>
+  <br>
+  <br>
 
-  <input type = "submit" value = "+ Add Recommendations"/>
+
+
+  <style>
+    button {
+          color:#ffd966;
+          border: 1px solid #ffd966;
+          background-color: Transparent;
+          padding: 7px
+          }
+  </style>
+
+  <button type="submit" name="add_recommendation">+ Add Recommendation</button>
+
+  <!-- <input type = "submit" value = "+ Add Recommendations"/> -->
 </form>
+
+
+
+</body>
