@@ -23,9 +23,12 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = '3x&-!b#)uzt!7sn(*mkk-@=e4e_5d13skdv_5*rh&^$9hxsp2q'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
 
-ALLOWED_HOSTS = []
+
+# Changed to False when pushed to production
+DEBUG = False
+
+ALLOWED_HOSTS = ["*"]
 
 
 # Application definition
@@ -124,3 +127,5 @@ STATIC_URL = '/static/'
 
 # After login, redirect to home page /
 LOGIN_REDIRECT_URL = '/'
+
+STATIC_ROOT = 'static/'
